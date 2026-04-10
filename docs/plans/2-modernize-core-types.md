@@ -30,7 +30,7 @@ To see it working: compile the updated example dashboards with `just build`, the
 - [x] Update package.dhall with new exports — 2026-04-10
 - [x] Update example dashboards to validate against Grafana v11 — 2026-04-10
 - [x] Validate: compile examples, all four produce valid JSON — 2026-04-10
-- [ ] Validate: load into Grafana v11 and verify no warnings (requires running Grafana instance)
+- [x] Validate: load into Grafana v11 and verify no warnings — 2026-04-10
 
 
 ## Surprises & Discoveries
@@ -68,7 +68,7 @@ All type changes are implemented and all four example dashboards compile to vali
 - ThresholdMode separated from ColorMode for type safety.
 - New types exported: Annotation, DataLink, ValueMapping, ValueMappingUtils.
 - All changes are backwards-compatible with existing example dashboards — only the consul_exporter example required updates (fixedColor → Optional Text, ColorMode.absolute → ThresholdMode.absolute).
-- Remaining: live Grafana v11 validation (requires `just process-up`).
+- Live Grafana v11 validation passed: all four dashboards provisioned at schema version 39 with no migration warnings or errors in server logs.
 
 
 ## Context and Orientation

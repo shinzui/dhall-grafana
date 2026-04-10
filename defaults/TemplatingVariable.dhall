@@ -14,12 +14,14 @@ let Templating = (../types/TemplatingVariable.dhall).Types
 
 let VariableType = (../types/TemplatingVariable.dhall).VariableType
 
+let DatasourceRef = ../types/DatasourceRef.dhall
+
 let hide = λ(hide : Bool) → boolFold hide Natural 2 0
 
 let queryValue =
       { allValue = None Text
       , current = None TemplatingVariable.Option
-      , datasource = "Prometheus"
+      , datasource = { type = "prometheus", uid = "\${DS_PROMETHEUS}" }
       , hide = 0
       , includeAll = True
       , label = None Text
@@ -33,7 +35,6 @@ let queryValue =
       , skipUrlSync = False
       , sort = 1
       , type = VariableType.query
-      , useTags = False
       }
 
 let QueryVariable = Templating.QueryVariable queryValue
@@ -41,7 +42,7 @@ let QueryVariable = Templating.QueryVariable queryValue
 let mkQuery =
       λ(name : Text) →
       λ(query : Text) →
-      λ(datasource : Text) →
+      λ(datasource : DatasourceRef) →
       λ(_hide : Bool) →
         Templating.QueryVariable
           (queryValue ⫽ { name, query, datasource, hide = hide _hide })
@@ -245,18 +246,17 @@ let adHocValue =
       , name = "adhoc"
       , skipUrlSync = False
       , type = VariableType.adhoc
-      , datasource = "Prometheus"
-      , filters = [ { key = "friendly_name", operator = "=", value = "masti" } ]
+      , datasource = { type = "prometheus", uid = "\${DS_PROMETHEUS}" }
       }
 
 let AdHocVariable = Templating.AdHocVariable adHocValue
 
 let mkAdHoc =
       λ(name : Text) →
-      λ(filters : List { key : Text, operator : Text, value : Text }) →
+      λ(datasource : DatasourceRef) →
       λ(_hide : Bool) →
         Templating.AdHocVariable
-          (adHocValue ⫽ { name, filters, hide = hide _hide })
+          (adHocValue ⫽ { name, datasource, hide = hide _hide })
 
 in  { QueryVariable =
       { Type = TemplatingVariable.QueryVariable, default = queryValue }

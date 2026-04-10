@@ -3,16 +3,14 @@ let TablePanel = ../types/TablePanel.dhall
 let MetricTargets = ../types/MetricTargets.dhall
 
 in  { type = TablePanel.PanelType.table
-    , alert = None (../types/Alert.dhall).Type
     , id = 0
-    , links = [] : List (../types/Link.dhall).Types
+    , links = [] : List (../types/Link.dhall).Type
     , repeat = None Text
     , repeatDirection = None ../types/Direction.dhall
     , maxPerRow = None Natural
-    , datasource = None Text
+    , datasource = None ../types/DatasourceRef.dhall
     , targets = [] : List MetricTargets
     , options = {=}
-    , thresholds = [] : List (../types/Threshold.dhall).Type
     , timeFrom = None Text
     , timeShift = None Text
     , hideTimeOverride = False

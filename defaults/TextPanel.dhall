@@ -1,11 +1,9 @@
 let TextPanel = ../types/TextPanel.dhall
 
 in  { id = 0
-    , alert = None (../types/Alert.dhall).Type
-    , content = "# Default"
-    , mode = TextPanel.Mode.markdown
     , type = TextPanel.PanelType.text
-    , links = [] : List (../types/Link.dhall).Types
+    , options = { content = "# Default", mode = TextPanel.Mode.markdown }
+    , links = [] : List (../types/Link.dhall).Type
     , repeat = None Text
     , repeatDirection = None ../types/Direction.dhall
     , maxPerRow = None Natural

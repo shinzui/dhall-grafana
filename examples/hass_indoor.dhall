@@ -15,23 +15,22 @@ let templateVariables =
       , Grafana.TemplatingVariableUtils.mkQuery
           "temperatures"
           "label_values(hass_temperature_c, friendly_name)"
-          "\$Datasource"
+          { type = "prometheus", uid = "\$Datasource" }
           True
       , Grafana.TemplatingVariableUtils.mkQuery
           "switches"
           "label_values(hass_switch_state, friendly_name)"
-          "\$Datasource"
+          { type = "prometheus", uid = "\$Datasource" }
           True
       ]
 
 let panels =
-      [ Grafana.Panels.mkSinglestatPanel
-          Grafana.SinglestatPanel::{
+      [ Grafana.Panels.mkStatPanel
+          Grafana.StatPanel::{
           , title = "\$temperatures"
           , repeat = Some "temperatures"
           , maxPerRow = Some 12
           , gridPos = { x = 0, y = 0, w = 3, h = 3 }
-          , postfix = "°C"
           , targets =
             [ Grafana.MetricsTargets.PrometheusTarget
                 Grafana.PrometheusTarget::{
@@ -43,12 +42,14 @@ let panels =
                 , scenarioId = test_dashboard
                 }
             ]
+          , options = Grafana.StatPanelOptions::{
+            , textMode = Grafana.StatPanelOptions.TextMode.value_and_name
+            }
           }
-      , Grafana.Panels.mkGraphPanel
-          Grafana.GraphPanel::{
+      , Grafana.Panels.mkTimeSeriesPanel
+          Grafana.TimeSeriesPanel::{
           , title = "Temperature"
           , gridPos = { x = 0, y = 12, w = 24, h = 6 }
-          , legend = Grafana.Legend::{ rightSide = True }
           , targets =
             [ Grafana.MetricsTargets.PrometheusTarget
                 Grafana.PrometheusTarget::{
@@ -57,14 +58,11 @@ let panels =
                 , scenarioId = test_dashboard
                 }
             ]
-          , fill = 0
-          , linewidth = 2
           }
-      , Grafana.Panels.mkGraphPanel
-          Grafana.GraphPanel::{
+      , Grafana.Panels.mkTimeSeriesPanel
+          Grafana.TimeSeriesPanel::{
           , title = "Humidity"
           , gridPos = { x = 0, y = 12, w = 24, h = 6 }
-          , legend = Grafana.Legend::{ rightSide = True }
           , targets =
             [ Grafana.MetricsTargets.PrometheusTarget
                 Grafana.PrometheusTarget::{
@@ -73,11 +71,9 @@ let panels =
                 , scenarioId = test_dashboard
                 }
             ]
-          , fill = 0
-          , linewidth = 2
           }
-      , Grafana.Panels.mkSinglestatPanel
-          Grafana.SinglestatPanel::{
+      , Grafana.Panels.mkStatPanel
+          Grafana.StatPanel::{
           , repeat = Some "switches"
           , maxPerRow = Some 12
           , title = "\$switches"
@@ -93,22 +89,18 @@ let panels =
                 , scenarioId = test_dashboard
                 }
             ]
-          , sparkline =
-            { show = True
-            , full = True
-            , lineColor = "rgb(31, 120, 193)"
-            , fillColor = "rgba(31, 118, 189, 0.18)"
+          , options = Grafana.StatPanelOptions::{
+            , graphMode = Grafana.StatPanelOptions.GraphMode.area
             }
           }
       ]
 
 let links =
-      [ Grafana.Link.Type.Link
-          Grafana.LinkExternal::{
-          , title = "Home Assistant"
-          , url = "https://www.home-assistant.io/"
-          , tooltip = "Home Assistant"
-          }
+      [ Grafana.LinkExternal::{
+        , title = "Home Assistant"
+        , url = Some "https://www.home-assistant.io/"
+        , tooltip = "Home Assistant"
+        }
       ]
 
 let dashboard

@@ -5,13 +5,12 @@ let PanelType = < table >
 let TablePanel =
           ./BasePanel.dhall
       //\\  { type : PanelType
-            , datasource : Optional Text
+            , datasource : Optional ./DatasourceRef.dhall
             , targets : List MetricTargets
             , options : {}
             , timeFrom : Optional Text
             , timeShift : Optional Text
             , hideTimeOverride : Bool
-            , thresholds : List (./Threshold.dhall).Type
             }
 
 in  { Type = TablePanel, PanelType }

@@ -5,12 +5,10 @@ let ScenarioId = Grafana.ScenarioId
 let datasourceName = "Datasource"
 
 let panels =
-      [ Grafana.Panels.mkSinglestatPanel
-          Grafana.SinglestatPanel::{
-          , title = "Singlestat panel"
+      [ Grafana.Panels.mkStatPanel
+          Grafana.StatPanel::{
+          , title = "Stat panel"
           , gridPos = { x = 0, y = 0, w = 24, h = 3 }
-          , colorBackground = True
-          , datasource = Some ("\$" ++ datasourceName)
           , targets =
             [ Grafana.MetricsTargets.TestDataDBTarget
                 Grafana.TestDataDBTarget::{ refId = "A" }
@@ -19,43 +17,41 @@ let panels =
       , Grafana.Panels.mkRow
           Grafana.Row::{
           , title = "This is the \$Custom row"
-          , gridPos = { x = 0, y = 4, w = 0, h = 0 }
+          , gridPos = { x = 0, y = 4, w = 24, h = 1 }
           , repeat = Some "Custom"
           }
       , Grafana.Panels.mkTextPanel
           Grafana.TextPanel::{
           , title = "Markdown panel"
           , gridPos = { x = 0, y = 5, w = 12, h = 6 }
-          , content =
-              ''
-              # foo
+          , options =
+            { content =
+                ''
+                # foo
 
-              $Custom
-              ''
-          , mode = Grafana.TextPanels.Mode.markdown
+                $Custom
+                ''
+            , mode = Grafana.TextPanels.Mode.markdown
+            }
           }
       , Grafana.Panels.mkTextPanel
           Grafana.TextPanel::{
           , title = "Html panel"
           , gridPos = { x = 12, y = 5, w = 12, h = 6 }
-          , content =
-              ''
-              <h1>bar</h1>
-              <br>
-              $Custom
-              ''
-          , mode = Grafana.TextPanels.Mode.html
+          , options =
+            { content =
+                ''
+                <h1>bar</h1>
+                <br>
+                $Custom
+                ''
+            , mode = Grafana.TextPanels.Mode.html
+            }
           }
-      , Grafana.Panels.mkGraphPanel
-          Grafana.GraphPanel::{
+      , Grafana.Panels.mkTimeSeriesPanel
+          Grafana.TimeSeriesPanel::{
           , title = "Temperature"
           , gridPos = { x = 0, y = 12, w = 24, h = 6 }
-          , datasource = Some ("\$" ++ datasourceName)
-          , xaxis = Grafana.XAxis::{ name = Some "x-label" }
-          , yaxes =
-            [ Grafana.YAxis::{ label = Some "temperature" }
-            , Grafana.YAxis.default
-            ]
           , targets =
             [ Grafana.MetricsTargets.TestDataDBTarget
                 Grafana.TestDataDBTarget::{ refId = "A" }
@@ -86,22 +82,20 @@ let templateVariables =
           False
       , Grafana.TemplatingVariableUtils.mkAdHoc
           "Adhoc"
-          ([] : List { key : Text, operator : Text, value : Text })
+          { type = "testdata", uid = "testdata" }
           False
       ]
 
 let links =
-      [ Grafana.Link.Type.Dashboards
-          Grafana.LinkDashboards::{
-          , tags = [ "prometheus" ]
-          , title = "Dashboards"
-          }
-      , Grafana.Link.Type.Link
-          Grafana.LinkExternal::{
-          , title = "Links"
-          , url = "https://learnxinyminutes.com/docs/dhall/"
-          , tooltip = "Learn Dhall"
-          }
+      [ Grafana.LinkDashboards::{
+        , tags = [ "prometheus" ]
+        , title = "Dashboards"
+        }
+      , Grafana.LinkExternal::{
+        , title = "Links"
+        , url = Some "https://learnxinyminutes.com/docs/dhall/"
+        , tooltip = "Learn Dhall"
+        }
       ]
 
 let dashboard

@@ -1,16 +1,3 @@
-let Status = < Stable >
+let TimePicker = { hidden : Bool, refresh_intervals : List Text }
 
-let TimePickerType = < timepicker >
-
-let TimePicker =
-      { collapse : Bool
-      , enable : Bool
-      , notice : Bool
-      , now : Bool
-      , refresh_intervals : List Text
-      , status : Status
-      , time_options : List Text
-      , type : TimePickerType
-      }
-
-in  { Type = TimePicker, TimePickerType, StatusType = Status }
+in  { Type = TimePicker }

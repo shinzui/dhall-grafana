@@ -1,5 +1,3 @@
-let Style = < dark | light >
-
 let TimeZoneOption = < utc | browser >
 
 let Dashboard =
@@ -7,10 +5,8 @@ let Dashboard =
       , uid : Optional Text
       , title : Text
       , tags : List Text
-      , style : Style
       , timezone : Optional TimeZoneOption
       , editable : Bool
-      , hideControls : Bool
       , graphTooltip : Natural
       , panels : List (./Panels.dhall).Panels
       , time : ./Time.dhall
@@ -20,10 +16,10 @@ let Dashboard =
       , refresh : Text
       , schemaVersion : Natural
       , version : Natural
-      , links : List (./Link.dhall).Types
+      , links : List (./Link.dhall).Type
       , fiscalYearStartMonth : Natural
       , liveNow : Bool
       , weekStart : Text
       }
 
-in  { Type = Dashboard, Style, Timezone = TimeZoneOption }
+in  { Type = Dashboard, Timezone = TimeZoneOption }

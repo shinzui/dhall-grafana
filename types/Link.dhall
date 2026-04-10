@@ -1,28 +1,16 @@
 let LinkType = < link | dashboards >
 
-let Dashboards =
-      { asDropdown : Bool
+let DashboardLink =
+      { title : Text
+      , type : LinkType
       , icon : Text
-      , includeVars : Bool
-      , keepTime : Bool
-      , tags : List Text
-      , targetBlank : Bool
-      , title : Text
-      , type : LinkType
-      }
-
-let Link =
-      { icon : Text
-      , includeVars : Bool
-      , keepTime : Bool
-      , tags : List Text
-      , targetBlank : Bool
-      , title : Text
       , tooltip : Text
-      , type : LinkType
-      , url : Text
+      , url : Optional Text
+      , tags : List Text
+      , asDropdown : Bool
+      , targetBlank : Bool
+      , includeVars : Bool
+      , keepTime : Bool
       }
 
-let Types = < Link : Link | Dashboards : Dashboards >
-
-in  { Types, Dashboards, Link, LinkType }
+in  { Type = DashboardLink, LinkType }

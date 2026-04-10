@@ -45,11 +45,10 @@ let panels =
             , orientation = Grafana.StatPanelOptions.Orientation.horizontal
             }
           }
-      , Grafana.Panels.mkGraphPanel
-          Grafana.GraphPanel::{
+      , Grafana.Panels.mkTimeSeriesPanel
+          Grafana.TimeSeriesPanel::{
           , title = "Peers and Leaders"
           , gridPos = { x = 6, y = 0, w = 6, h = 6 }
-          , legend = Grafana.Legend::{ show = False }
           , targets =
             [ Grafana.MetricsTargets.PrometheusTarget
                 Grafana.PrometheusTarget::{
@@ -59,19 +58,17 @@ let panels =
                 }
             , Grafana.MetricsTargets.PrometheusTarget
                 Grafana.PrometheusTarget::{
-                , refId = "A"
+                , refId = "B"
                 , expr = "consul_raft_leader"
                 , scenarioId = test_dashboard
                 }
             , Grafana.MetricsTargets.PrometheusTarget
                 Grafana.PrometheusTarget::{
-                , refId = "A"
+                , refId = "C"
                 , expr = "consul_serf_lan_members"
                 , scenarioId = test_dashboard
                 }
             ]
-          , fill = 0
-          , linewidth = 2
           }
       , Grafana.Panels.mkTablePanel
           Grafana.TablePanel::{
@@ -133,21 +130,11 @@ let panels =
                     : List { color : Text, value : Double }
                   )
             }
-          , alert = Some
-              ( Grafana.Alerts.mkSimpleAlert
-                  "Unhealthy Services"
-                  (None Text)
-                  0
-                  (None Grafana.Alerts.ConditionEvaluator)
-                  (None Grafana.Alerts.ExecutionErrorState)
-                  (Some Grafana.Alerts.NoDataState.alerting)
-              )
           }
-      , Grafana.Panels.mkGraphPanel
-          Grafana.GraphPanel::{
+      , Grafana.Panels.mkTimeSeriesPanel
+          Grafana.TimeSeriesPanel::{
           , title = "Services and checks"
           , gridPos = { x = 0, y = 12, w = 24, h = 12 }
-          , legend = Grafana.Legend::{ rightSide = True }
           , targets =
             [ Grafana.MetricsTargets.PrometheusTarget
                 Grafana.PrometheusTarget::{
@@ -158,18 +145,15 @@ let panels =
                 , legendFormat = "{{node}} - {{service_id}} - {{status}}"
                 }
             ]
-          , fill = 0
-          , linewidth = 2
           }
       ]
 
 let links =
-      [ Grafana.Link.Type.Link
-          Grafana.LinkExternal::{
-          , title = "consul_exporter in Github"
-          , url = "https://github.com/prometheus/consul_exporter"
-          , tooltip = "consul_exporter in Github"
-          }
+      [ Grafana.LinkExternal::{
+        , title = "consul_exporter in Github"
+        , url = Some "https://github.com/prometheus/consul_exporter"
+        , tooltip = "consul_exporter in Github"
+        }
       ]
 
 let dashboard

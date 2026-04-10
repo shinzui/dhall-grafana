@@ -1,11 +1,10 @@
 { id : Natural
 , title : Text
 , gridPos : ./GridPos.dhall
-, links : List (./Link.dhall).Types
+, links : List (./Link.dhall).Type
 , transparent : Bool
 , repeat : Optional Text
 , repeatDirection : Optional ./Direction.dhall
 , maxPerRow : Optional Natural
-, alert : Optional (./Alert.dhall).Type
 , transformations : List (./Transformations.dhall).Types
 }

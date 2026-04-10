@@ -9,6 +9,8 @@ let Option = < Single : OptionSingle | Multi : OptionMulti >
 
 let Current = Option
 
+let DatasourceRef = ./DatasourceRef.dhall
+
 let TemplatingVariableBase =
       { hide : Natural
       , label : Optional Text
@@ -28,9 +30,8 @@ let QueryVariable =
             , sort : Natural
             , refresh : Natural
             , options : List Option
-            , datasource : Text
+            , datasource : DatasourceRef
             , current : Optional Current
-            , useTags : Bool
             }
 
 let IntervalVariable =
@@ -71,11 +72,7 @@ let TextboxVariable =
           TemplatingVariableBase
       //\\  { query : Text, options : List Option, current : Optional Current }
 
-let AdHocVariable =
-          TemplatingVariableBase
-      //\\  { filters : List { key : Text, operator : Text, value : Text }
-            , datasource : Text
-            }
+let AdHocVariable = TemplatingVariableBase //\\ { datasource : DatasourceRef }
 
 let Types =
       < QueryVariable : QueryVariable

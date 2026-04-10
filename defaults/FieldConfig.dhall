@@ -27,8 +27,8 @@ let DefaultFieldConfig =
         , thresholds =
           { mode = FieldConfig.ThresholdMode.absolute
           , steps =
-            [ { color = "green", value = None Double }
-            , { color = "red", value = Some 80.0 }
+            [ { color = "green", value = 0.0 }
+            , { color = "red", value = 80.0 }
             ]
           }
         }

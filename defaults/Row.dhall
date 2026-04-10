@@ -1,14 +1,10 @@
 let Row = ../types/Row.dhall
 
 in  { type = Row.PanelType.row
-    , alert = None (../types/Alert.dhall).Type
-    , id = 0
     , collapsed = False
-    , links = [] : List (../types/Link.dhall).Types
+    , id = 0
+    , panels = [] : List {}
+    , title = ""
+    , gridPos = { x = 0, y = 0, w = 24, h = 1 }
     , repeat = None Text
-    , repeatDirection = None ../types/Direction.dhall
-    , maxPerRow = None Natural
-    , transparent = False
-    , transformations = [] : List (../types/Transformations.dhall).Types
-    , fieldConfig = None (../types/FieldConfig.dhall).Type
     }

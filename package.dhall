@@ -11,10 +11,6 @@
   { default = ./defaults/TimePicker.dhall
   , Type = (./types/TimePicker.dhall).Type
   }
-, SinglestatPanel =
-  { default = ./defaults/SinglestatPanel.dhall
-  , Type = (./types/SinglestatPanel.dhall).Type
-  }
 , StatPanelOptions =
         ./types/StatPanelOptions.dhall
     //  { default = ./defaults/StatPanelOptions.dhall }
@@ -29,10 +25,6 @@
   , Type = (./types/TextPanel.dhall).Type
   }
 , TextPanels = ./types/TextPanel.dhall
-, GraphPanel =
-  { default = ./defaults/GraphPanel.dhall
-  , Type = (./types/GraphPanel.dhall).Type
-  }
 , TimeSeriesPanel =
   { default = ./defaults/TimeSeriesPanel.dhall
   , Type = (./types/TimeSeriesPanel.dhall).Type
@@ -87,18 +79,15 @@
   , Type = (./types/TestDataDBTarget.dhall).Type
   }
 , Link =
-  { default = (./types/Link.dhall).Types.Link
-  , Type = (./types/Link.dhall).Types
-  }
+  { Type = (./types/Link.dhall).Type, LinkType = (./types/Link.dhall).LinkType }
 , LinkExternal =
   { default = (./defaults/Link.dhall).LinkExternal
-  , Type = (./types/Link.dhall).Link
+  , Type = (./types/Link.dhall).Type
   }
 , LinkDashboards =
   { default = (./defaults/Link.dhall).LinkDashboards
-  , Type = (./types/Link.dhall).Dashboards
+  , Type = (./types/Link.dhall).Type
   }
-, Legend = { default = ./defaults/Legend.dhall, Type = ./types/Legend.dhall }
 , Row = { default = ./defaults/Row.dhall, Type = (./types/Row.dhall).Type }
 , GridPos = { default = ./defaults/GridPos.dhall, Type = ./types/GridPos.dhall }
 , Timezone = (./types/Dashboard.dhall).Timezone
@@ -120,9 +109,6 @@
 , TemplatingVariable = ./types/TemplatingVariable.dhall
 , TemplatingVariableUtils = ./defaults/TemplatingVariable.dhall
 , PrometheusTargetFormat = (./types/PrometheusTarget.dhall).FormatType
-, Alert =
-  { default = ./defaults/Alert.dhall, Type = (./types/Alert.dhall).Type }
-, Alerts = ./types/Alert.dhall
 , FieldConfig =
   { default = (./defaults/FieldConfig.dhall).NullFieldConfig
   , Type = (./types/FieldConfig.dhall).Type
@@ -131,8 +117,6 @@
 , FieldConfigs = ./types/FieldConfig.dhall
 , ValueMapping = ./types/ValueMapping.dhall
 , ValueMappingUtils = ./defaults/ValueMapping.dhall
-, XAxis = ./types/XAxis.dhall // { default = ./defaults/XAxis.dhall }
-, YAxis = ./types/YAxis.dhall // { default = ./defaults/YAxis.dhall }
 , LuceneBucketSettings = ./schemas/LuceneBucketSettings.dhall
 , LuceneTarget = ./schemas/LuceneTarget.dhall
 }

@@ -1,25 +1,29 @@
 let Link = ../types/Link.dhall
 
 let LinkDashboards =
-      { icon = "external link"
+      { title = "Dashboards"
+      , type = Link.LinkType.dashboards
+      , icon = "external link"
+      , tooltip = ""
+      , url = None Text
+      , tags = [] : List Text
+      , asDropdown = True
+      , targetBlank = False
       , includeVars = False
       , keepTime = False
-      , targetBlank = True
-      , title = "Dashboards"
-      , type = Link.LinkType.dashboards
-      , asDropdown = True
       }
 
 let LinkExternal =
-      { icon = "external link"
+      { title = "External"
+      , type = Link.LinkType.link
+      , icon = "external link"
+      , tooltip = ""
+      , url = Some ""
+      , tags = [] : List Text
+      , asDropdown = False
+      , targetBlank = True
       , includeVars = False
       , keepTime = False
-      , tags = [] : List Text
-      , targetBlank = True
-      , title = "External"
-      , type = Link.LinkType.link
-      , url = ""
-      , tooltip = "External"
       }
 
 in  { LinkDashboards, LinkExternal }

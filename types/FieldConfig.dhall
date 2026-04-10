@@ -28,6 +28,8 @@ let ThresholdMode = < absolute | percentage >
 
 let MatcherID = < byName | byType | byRegexp | byFrameRefID >
 
+let ThresholdStep = { color : Text, value : Double }
+
 let Defaults =
       { color : { fixedColor : Optional Text, mode : ColorMode }
       , custom : {}
@@ -39,10 +41,7 @@ let Defaults =
       , noValue : Optional Text
       , links : List DataLink
       , mappings : List ValueMapping
-      , thresholds :
-          { mode : ThresholdMode
-          , steps : List { color : Text, value : Optional Double }
-          }
+      , thresholds : { mode : ThresholdMode, steps : List ThresholdStep }
       }
 
 let Override =
@@ -70,15 +69,7 @@ let mkDefaults =
           , mappings = [] : List ValueMapping
           , thresholds =
             { mode = thresholdMode
-            , steps =
-                  [ { color = baseThresholdColor, value = None Double } ]
-                # Prelude.List.map
-                    { color : Text, value : Double }
-                    { color : Text, value : Optional Double }
-                    ( \(t : { color : Text, value : Double }) ->
-                        { color = t.color, value = Some t.value }
-                    )
-                    steps
+            , steps = [ { color = baseThresholdColor, value = 0.0 } ] # steps
             }
           }
 
@@ -88,5 +79,6 @@ in  { Type = FieldConfig
     , MatcherID
     , Defaults
     , Override
+    , ThresholdStep
     , mkDefaults
     }

@@ -20,7 +20,7 @@ let ModernFieldConfig =
             , mappings : List ValueMapping
             , thresholds :
                 { mode : FieldConfig.ThresholdMode
-                , steps : List { color : Text, value : Optional Double }
+                , steps : List FieldConfig.ThresholdStep
                 }
             }
         , overrides : List FieldConfig.Override

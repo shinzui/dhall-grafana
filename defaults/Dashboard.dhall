@@ -1,5 +1,7 @@
 let Dashboard = ../types/Dashboard.dhall
 
+let Annotation = ../types/Annotation.dhall
+
 let TimePicker = ./TimePicker.dhall
 
 in  { id = 0
@@ -15,8 +17,12 @@ in  { id = 0
     , time = { from = "now-6h", to = "now" }
     , timepicker = TimePicker
     , templating.list = [] : List (../types/TemplatingVariable.dhall).Types
+    , annotations.list = [] : List Annotation
     , refresh = "5s"
-    , schemaVersion = 17
+    , schemaVersion = 39
     , version = 0
     , links = [] : List (../types/Link.dhall).Types
+    , fiscalYearStartMonth = 0
+    , liveNow = False
+    , weekStart = ""
     }

@@ -16,10 +16,14 @@ let Dashboard =
       , time : ./Time.dhall
       , timepicker : (./TimePicker.dhall).Type
       , templating : { list : List (./TemplatingVariable.dhall).Types }
+      , annotations : { list : List ./Annotation.dhall }
       , refresh : Text
       , schemaVersion : Natural
       , version : Natural
       , links : List (./Link.dhall).Types
+      , fiscalYearStartMonth : Natural
+      , liveNow : Bool
+      , weekStart : Text
       }
 
 in  { Type = Dashboard, Style, Timezone = TimeZoneOption }

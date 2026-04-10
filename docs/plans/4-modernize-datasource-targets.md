@@ -27,6 +27,7 @@ To see it working: write a Dhall dashboard with a Loki target querying `{job="gr
 - [x] Update package.dhall with new exports (2026-04-10)
 - [x] Update example dashboards for compatibility with new target types (2026-04-10)
 - [x] Validate targets compile correctly — all examples build, LokiTarget standalone expression verified (2026-04-10)
+- [x] Live validation against Grafana v12.4.2 — all dashboards provisioned, Prometheus and TestData queries execute, panels render (2026-04-10)
 
 
 ## Surprises & Discoveries
@@ -48,6 +49,11 @@ To see it working: write a Dhall dashboard with a Loki target querying `{job="gr
 
 - Decision: Support both InfluxQL and Flux in the InfluxDB target rather than creating separate types.
   Rationale: Grafana's InfluxDB data source supports both query languages through the same data source configuration, distinguished by a `query` field (Flux) versus `measurement`/`select`/`groupBy` fields (InfluxQL). A single type with optional fields for each query model is more ergonomic than separate types, since users select the language at the data source level, not per query.
+  Date: 2026-04-10
+
+- Decision: InfluxDB support subsequently removed entirely.
+  Rationale: InfluxDB is not used in this project. Carrying the types and defaults added
+  maintenance burden. Removed in EP-5 (docs/plans/5-remove-influxdb-support.md).
   Date: 2026-04-10
 
 

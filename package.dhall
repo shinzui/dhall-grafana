@@ -76,10 +76,6 @@
   , Type = (./types/PrometheusTarget.dhall).Type
   }
 , PrometheusEditorMode = (./types/PrometheusTarget.dhall).EditorMode
-, InfluxTarget =
-  { default = ./defaults/InfluxTarget.dhall
-  , Type = (./types/InfluxTarget.dhall).Type
-  }
 , LokiTarget =
   { default = ./defaults/LokiTarget.dhall
   , Type = (./types/LokiTarget.dhall).Type

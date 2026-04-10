@@ -21,7 +21,7 @@ See the [master plan](docs/masterplans/1-revamp-dhall-grafana.md) for full detai
 
 **Panel types:** GraphPanel, StatPanel, SinglestatPanel, TextPanel, TablePanel, Row
 
-**Data source targets:** Prometheus, InfluxDB, TestDataDB, RawQuery
+**Data source targets:** Prometheus, Loki, TestDataDB, RawQuery
 
 **Dashboard features:** Templating variables, links, legends, transformations, field config with thresholds and color modes, legacy per-panel alerts
 
@@ -136,7 +136,6 @@ Every type is defined in [`types/`](./types/) and has a corresponding default in
 | [all_dashboard.dhall](examples/all_dashboard.dhall) | Comprehensive showcase of all panel types, templating variables, and links |
 | [consul_exporter.dhall](examples/consul_exporter.dhall) | Real-world Consul monitoring with Prometheus targets and data transformations |
 | [hass_indoor.dhall](examples/hass_indoor.dhall) | Home Assistant indoor environment dashboard |
-| [influxdb.dhall](examples/influxdb.dhall) | InfluxDB query example (compile-only, no running InfluxDB needed) |
 
 ## Project structure
 

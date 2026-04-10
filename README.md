@@ -47,7 +47,7 @@ nix develop
 ### Start local services
 
 ```sh
-process-compose up
+just process-up
 ```
 
 This starts Grafana (port 3000) and Prometheus (port 9090). Dashboards compiled to `out/` are auto-provisioned into Grafana with a 5-second reload interval.
@@ -55,10 +55,32 @@ This starts Grafana (port 3000) and Prometheus (port 9090). Dashboards compiled 
 ### Build example dashboards
 
 ```sh
-dhall-to-json --file examples/all_dashboard.dhall > out/all_dashboard.json
+just build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to see your dashboards. Anonymous auth is enabled with Admin access for local development.
+This compiles all example dashboards to `out/`. Open [http://localhost:3000](http://localhost:3000) and navigate to the "Examples" folder to see your dashboards. Anonymous auth is enabled with Admin access for local development.
+
+### Validate dashboards
+
+```sh
+just validate
+```
+
+Validates compiled JSON against the Grafana dashboard schema.
+
+### Watch for changes
+
+```sh
+just watch examples/all_dashboard.dhall
+```
+
+Watches a Dhall file for changes, recompiles on save, and Grafana auto-reloads via provisioning.
+
+### Stop services
+
+```sh
+just process-down
+```
 
 ## Usage
 

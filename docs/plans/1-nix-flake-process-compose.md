@@ -31,8 +31,9 @@ To see it working: enter the dev shell, run `just process-up`, then run `just bu
 - [x] Set up JSON schema validation using grafana-foundation-sdk schemas (2026-04-10)
 - [ ] Add dashboard-linter to the toolchain (skipped — not in nixpkgs, defer to follow-up)
 - [x] Update .gitignore for new paths (.dev/, .direnv/, out/, result) (2026-04-10)
-- [ ] Remove local-dev/ directory and build_examples.sh
-- [ ] Update README.md with new development workflow
+- [x] Remove local-dev/ directory and build_examples.sh (2026-04-10)
+- [x] Update README.md with new development workflow (2026-04-10)
+- [x] Update .github/workflows/main.yml to use Nix flake for CI (2026-04-10)
 - [ ] Validate: enter dev shell, start services, build examples, view dashboards in Grafana, run schema validation
 
 

@@ -8,48 +8,17 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Download dhall
-      uses: Legion2/download-release-action@v2.1.0
-      with:
-        repository: dhall-lang/dhall-haskell
-        tag: '1.42.0'
-        file: dhall-1.42.0-x86_64-linux.tar.bz2
-    - name: Extract dhall
-      run: tar xvf dhall-1.42*.tar.bz2
-
-    - name: Validate dhall format
-      run: find . -name "*.dhall" -exec ./bin/dhall format --check {} \;
+    - uses: actions/checkout@v4
+    - uses: DeterminateSystems/nix-installer-action@main
+    - uses: DeterminateSystems/magic-nix-cache-action@main
+    - name: Check formatting
+      run: nix flake check
 
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Download dhall-to-json
-      uses: Legion2/download-release-action@v2.1.0
-      with:
-        repository: dhall-lang/dhall-haskell
-        tag: '1.36.0'
-        file: dhall-json-1.7.3-x86_64-linux.tar.bz2
-    - name: Extract dhall-to-json
-      run: tar xvf dhall-json-1.7.3-x86_64-linux.tar.bz2 && mv bin/dhall-to-json .
-    - name: Build examples/all_dashboard.dhall
-      run: |
-        echo "Building all_dashboard.dhall"
-        ./dhall-to-json --file examples/all_dashboard.dhall
-    - name: Build examples/hass_indoor.dhall
-      env:
-        TEST_DASHBOARD: "(./package.dhall).ScenarioId.random_walk"
-      run: |
-        echo "Building examples/hass_indoor.dhall"
-        ./dhall-to-json --file examples/hass_indoor.dhall
-    - name: Build examples/consul_exporter.dhall
-      env:
-        TEST_DASHBOARD: "(./package.dhall).ScenarioId.random_walk"
-      run: |
-        echo "Building examples/consul_exporter.dhall"
-        ./dhall-to-json --file examples/consul_exporter.dhall
-    - name: Build examples/influxdb.dhall
-      run: |
-        echo "Building examples/influxdb.dhall"
-        ./dhall-to-json --file examples/influxdb.dhall
+    - uses: actions/checkout@v4
+    - uses: DeterminateSystems/nix-installer-action@main
+    - uses: DeterminateSystems/magic-nix-cache-action@main
+    - name: Build example dashboards
+      run: nix develop --command just build

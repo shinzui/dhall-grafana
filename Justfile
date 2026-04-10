@@ -53,11 +53,11 @@ check-all: build validate
 
 [group("format")]
 format:
-    treefmt
+    nix fmt
 
 [group("format")]
 check-format:
-    treefmt --fail-on-change
+    nix fmt -- --fail-on-change
 
 # --- Dev ---
 

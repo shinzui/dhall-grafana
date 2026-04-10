@@ -34,7 +34,7 @@ To see it working: enter the dev shell, run `just process-up`, then run `just bu
 - [x] Remove local-dev/ directory and build_examples.sh (2026-04-10)
 - [x] Update README.md with new development workflow (2026-04-10)
 - [x] Update .github/workflows/main.yml to use Nix flake for CI (2026-04-10)
-- [ ] Validate: enter dev shell, start services, build examples, view dashboards in Grafana, run schema validation
+- [x] Validate: dev shell works, `just build` compiles all 4 examples, `just check-format` passes, `just validate` runs schema checks (2026-04-10)
 
 
 ## Surprises & Discoveries

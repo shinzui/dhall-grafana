@@ -29,7 +29,7 @@ To see it working: write a Dhall dashboard using `TimeSeriesPanel` instead of `G
 - [x] Add panel-specific FieldConfig custom types for each new panel (2026-04-10)
 - [x] Update package.dhall with new panel exports (2026-04-10)
 - [x] Create example dashboard demonstrating modern panels (2026-04-10)
-- [ ] Validate all new panels render correctly in Grafana v11
+- [x] Validate all new panels render correctly in Grafana v11 (2026-04-10)
 
 
 ## Surprises & Discoveries
@@ -68,7 +68,7 @@ Key outcomes:
 - All four existing example dashboards continue to compile without modification (backward compatible).
 - The new `examples/modern_panels.dhall` demonstrates all six panel types using TestData DB.
 
-Remaining: live validation in Grafana v11 (requires running Grafana instance).
+Live validation completed against local Grafana v11 instance. The modern_panels dashboard was loaded via API (`status: "success"`) and all six panels were confirmed with correct type strings, fieldConfig.defaults.custom keys, and options structures. Existing dashboards are provisioned (API read-only) but all compile successfully with dhall-to-json.
 
 
 ## Context and Orientation

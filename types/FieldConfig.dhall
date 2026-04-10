@@ -2,42 +2,74 @@ let Prelude =
       https://prelude.dhall-lang.org/v20.1.0/package.dhall
         sha256:26b0ef498663d269e4dc6a82b0ee289ec565d683ef4c00d0ebdd25333a5a3c98
 
-let ColorMode = < fixed | thresholds | absolute | percentage >
+let DataLink = ./DataLink.dhall
 
-let MatcherID = < byName >
+let ValueMapping = (./ValueMapping.dhall).Type
 
-let MatcherOption = < status >
+let ColorMode =
+      < fixed
+      | thresholds
+      | palette-classic
+      | palette-classic-by-name
+      | continuous-GrYlRd
+      | continuous-RdYlGr
+      | continuous-BlYlRd
+      | continuous-YlRd
+      | continuous-BlPu
+      | continuous-YlBl
+      | continuous-blues
+      | continuous-reds
+      | continuous-greens
+      | continuous-purples
+      | shades
+      >
+
+let ThresholdMode = < absolute | percentage >
+
+let MatcherID = < byName | byType | byRegexp | byFrameRefID >
 
 let Defaults =
-      { color : { fixedColor : Text, mode : ColorMode }
+      { color : { fixedColor : Optional Text, mode : ColorMode }
       , custom : {}
       , unit : Optional Text
-      , mappings : List {}
+      , decimals : Optional Natural
+      , displayName : Optional Text
+      , min : Optional Double
+      , max : Optional Double
+      , noValue : Optional Text
+      , links : List DataLink
+      , mappings : List ValueMapping
       , thresholds :
-          { mode : ColorMode
+          { mode : ThresholdMode
           , steps : List { color : Text, value : Optional Double }
           }
       }
 
 let Override =
-      { matcher : { id : MatcherID, options : MatcherOption }
+      { matcher : { id : MatcherID, options : Text }
       , properties : List (Prelude.Map.Type Text Text)
       }
 
 let FieldConfig = { defaults : Optional Defaults, overrides : List Override }
 
 let mkDefaults =
-      \(color : { fixedColor : Text, mode : ColorMode }) ->
+      \(color : { fixedColor : Optional Text, mode : ColorMode }) ->
       \(baseThresholdColor : Text) ->
-      \(thresholdColorMode : ColorMode) ->
+      \(thresholdMode : ThresholdMode) ->
       \(steps : List { color : Text, value : Double }) ->
         Some
           { color
           , custom = {=}
           , unit = None Text
-          , mappings = [] : List {}
+          , decimals = None Natural
+          , displayName = None Text
+          , min = None Double
+          , max = None Double
+          , noValue = None Text
+          , links = [] : List DataLink
+          , mappings = [] : List ValueMapping
           , thresholds =
-            { mode = thresholdColorMode
+            { mode = thresholdMode
             , steps =
                   [ { color = baseThresholdColor, value = None Double } ]
                 # Prelude.List.map
@@ -52,8 +84,8 @@ let mkDefaults =
 
 in  { Type = FieldConfig
     , ColorMode
+    , ThresholdMode
     , MatcherID
-    , MatcherOption
     , Defaults
     , Override
     , mkDefaults

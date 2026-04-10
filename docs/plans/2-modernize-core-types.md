@@ -22,11 +22,11 @@ To see it working: compile the updated example dashboards with `just build`, the
 - [x] Update Dashboard type with new fields (annotations, fiscalYearStartMonth, liveNow, weekStart) — 2026-04-10
 - [x] Update schemaVersion from 17 to 39 in Dashboard default — 2026-04-10
 - [x] Add Annotation type (dashboard-level annotations list) — 2026-04-10
-- [ ] Modernize FieldConfig: add defaults.custom as generic record, expand color modes
-- [ ] Add modern ValueMapping types (ValueMap, RangeMap, RegexMap, SpecialMap)
-- [ ] Add DataLink type for field-level links
-- [ ] Update Threshold type to match modern stepped format
-- [ ] Update existing panel defaults to use modernized FieldConfig
+- [x] Modernize FieldConfig: add defaults.custom as generic record, expand color modes — 2026-04-10
+- [x] Add modern ValueMapping types (ValueMap, RangeMap, RegexMap, SpecialMap) — 2026-04-10
+- [x] Add DataLink type for field-level links — 2026-04-10
+- [x] Update Threshold type to match modern stepped format — 2026-04-10
+- [x] Update existing panel defaults to use modernized FieldConfig — 2026-04-10
 - [ ] Update package.dhall with new exports
 - [ ] Update example dashboards to validate against Grafana v11
 - [ ] Validate: compile examples, load into Grafana, verify no warnings
@@ -49,6 +49,10 @@ To see it working: compile the updated example dashboards with `just build`, the
 
 - Decision: Keep the existing legacy Alert type but mark it as deprecated.
   Rationale: Grafana Unified Alerting is a separate system from legacy per-panel alerts. Removing the Alert type would break backward compatibility for users generating dashboards for older Grafana versions. The type will be kept but the documentation will note that it only works with Grafana versions that have legacy alerting enabled.
+  Date: 2026-04-10
+
+- Decision: Separate ThresholdMode from ColorMode into distinct union types.
+  Rationale: In Grafana v11, color modes (fixed, thresholds, palette-classic, continuous-*, shades) and threshold modes (absolute, percentage) are semantically distinct enums. The original code reused a single ColorMode union for both. Splitting them into ColorMode and ThresholdMode provides type safety — it's no longer possible to accidentally use a color mode like "palette-classic" for a threshold mode.
   Date: 2026-04-10
 
 

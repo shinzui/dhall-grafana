@@ -34,11 +34,11 @@ let panels =
           , fieldConfig = Some Grafana.FieldConfig::{
             , defaults =
                 Grafana.FieldConfigs.mkDefaults
-                  { fixedColor = "light-purple"
+                  { fixedColor = Some "light-purple"
                   , mode = Grafana.FieldConfigs.ColorMode.fixed
                   }
                   "green"
-                  Grafana.FieldConfigs.ColorMode.absolute
+                  Grafana.FieldConfigs.ThresholdMode.absolute
                   ([] : List { color : Text, value : Double })
             }
           , options = Grafana.StatPanelOptions::{
@@ -124,11 +124,11 @@ let panels =
           , fieldConfig = Some Grafana.FieldConfig::{
             , defaults =
                 Grafana.FieldConfigs.mkDefaults
-                  { fixedColor = "green"
+                  { fixedColor = Some "green"
                   , mode = Grafana.FieldConfigs.ColorMode.thresholds
                   }
                   "green"
-                  Grafana.FieldConfigs.ColorMode.absolute
+                  Grafana.FieldConfigs.ThresholdMode.absolute
                   (   [ { color = "red", value = 1.0 } ]
                     : List { color : Text, value : Double }
                   )

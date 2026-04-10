@@ -67,14 +67,25 @@
   { default = ./defaults/TablePanel.dhall
   , Type = (./types/TablePanel.dhall).Type
   }
+, DatasourceRef =
+  { default = ./defaults/DatasourceRef.dhall
+  , Type = ./types/DatasourceRef.dhall
+  }
 , PrometheusTarget =
   { default = ./defaults/PrometheusTarget.dhall
   , Type = (./types/PrometheusTarget.dhall).Type
   }
+, PrometheusEditorMode = (./types/PrometheusTarget.dhall).EditorMode
 , InfluxTarget =
   { default = ./defaults/InfluxTarget.dhall
   , Type = (./types/InfluxTarget.dhall).Type
   }
+, LokiTarget =
+  { default = ./defaults/LokiTarget.dhall
+  , Type = (./types/LokiTarget.dhall).Type
+  }
+, LokiEditorMode = (./types/LokiTarget.dhall).EditorMode
+, LokiQueryType = (./types/LokiTarget.dhall).QueryType
 , TestDataDBTarget =
   { default = ./defaults/TestDataDBTarget.dhall
   , Type = (./types/TestDataDBTarget.dhall).Type

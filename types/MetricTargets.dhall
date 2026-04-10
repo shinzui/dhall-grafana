@@ -8,9 +8,12 @@ let RawQueryTarget = (./RawQueryTarget.dhall).Type
 
 let LuceneTarget = (../schemas/LuceneTarget.dhall).Type
 
+let LokiTarget = (./LokiTarget.dhall).Type
+
 in  < PrometheusTarget : PrometheusTarget
     | InfluxTarget : InfluxTarget
     | TestDataDBTarget : TestDataDBTarget
     | RawQueryTarget : RawQueryTarget
     | LuceneTarget : LuceneTarget
+    | LokiTarget : LokiTarget
     >

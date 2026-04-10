@@ -12,6 +12,8 @@ let TablePanel = (./TablePanel.dhall).Type
 
 let Row = (./Row.dhall).Type
 
+let TimeSeriesPanel = (./TimeSeriesPanel.dhall).Type
+
 let Panels =
       < TextPanel : TextPanel
       | GraphPanel : GraphPanel
@@ -19,6 +21,7 @@ let Panels =
       | StatPanel : StatPanel
       | TablePanel : TablePanel
       | Row : Row
+      | TimeSeriesPanel : TimeSeriesPanel
       >
 
 let panelGenerator
@@ -74,6 +77,13 @@ let mkRow
     : Row → Natural → Panels
     = panelGenerator Row Panels.Row (λ(p : Row) → λ(id : Natural) → p ⫽ { id })
 
+let mkTimeSeriesPanel
+    : TimeSeriesPanel → Natural → Panels
+    = panelGenerator
+        TimeSeriesPanel
+        Panels.TimeSeriesPanel
+        (λ(p : TimeSeriesPanel) → λ(id : Natural) → p ⫽ { id })
+
 in  { Panels
     , mkTextPanel
     , mkGraphPanel
@@ -81,4 +91,5 @@ in  { Panels
     , mkStatPanel
     , mkTablePanel
     , mkRow
+    , mkTimeSeriesPanel
     }

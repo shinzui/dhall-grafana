@@ -74,7 +74,13 @@ To see it working: enter the dev shell, run `just process-up`, then run `just bu
 
 ## Outcomes & Retrospective
 
-(To be filled during and after implementation.)
+Completed 2026-04-10. All three milestones delivered in four commits.
+
+**What was delivered:** Nix flake devShell with all tools, process-compose orchestration for Grafana 12.4 + Prometheus 3.10, Justfile with 9 commands across 5 groups, Grafana provisioning with dashboard auto-load from `out/`, JSON schema validation via check-jsonschema against grafana-foundation-sdk schemas, treefmt with dhall + nix formatting, CI updated to use Nix flake.
+
+**What was deferred:** dashboard-linter (not in nixpkgs, low value until types are modernized). The `just lint` command placeholder was omitted — add it when dashboard-linter is integrated.
+
+**Key insight:** Schema validation immediately confirmed that current Dhall types produce legacy Grafana JSON incompatible with the v11/v12 schema. This validates the need for EP-2/3/4 and provides a concrete regression signal as types are modernized — `just validate` will progressively pass as each EP lands.
 
 
 ## Context and Orientation

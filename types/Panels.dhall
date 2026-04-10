@@ -14,6 +14,12 @@ let Row = (./Row.dhall).Type
 
 let TimeSeriesPanel = (./TimeSeriesPanel.dhall).Type
 
+let BarChartPanel = (./BarChartPanel.dhall).Type
+
+let PieChartPanel = (./PieChartPanel.dhall).Type
+
+let HistogramPanel = (./HistogramPanel.dhall).Type
+
 let Panels =
       < TextPanel : TextPanel
       | GraphPanel : GraphPanel
@@ -22,6 +28,9 @@ let Panels =
       | TablePanel : TablePanel
       | Row : Row
       | TimeSeriesPanel : TimeSeriesPanel
+      | BarChartPanel : BarChartPanel
+      | PieChartPanel : PieChartPanel
+      | HistogramPanel : HistogramPanel
       >
 
 let panelGenerator
@@ -84,6 +93,27 @@ let mkTimeSeriesPanel
         Panels.TimeSeriesPanel
         (λ(p : TimeSeriesPanel) → λ(id : Natural) → p ⫽ { id })
 
+let mkBarChartPanel
+    : BarChartPanel → Natural → Panels
+    = panelGenerator
+        BarChartPanel
+        Panels.BarChartPanel
+        (λ(p : BarChartPanel) → λ(id : Natural) → p ⫽ { id })
+
+let mkPieChartPanel
+    : PieChartPanel → Natural → Panels
+    = panelGenerator
+        PieChartPanel
+        Panels.PieChartPanel
+        (λ(p : PieChartPanel) → λ(id : Natural) → p ⫽ { id })
+
+let mkHistogramPanel
+    : HistogramPanel → Natural → Panels
+    = panelGenerator
+        HistogramPanel
+        Panels.HistogramPanel
+        (λ(p : HistogramPanel) → λ(id : Natural) → p ⫽ { id })
+
 in  { Panels
     , mkTextPanel
     , mkGraphPanel
@@ -92,4 +122,7 @@ in  { Panels
     , mkTablePanel
     , mkRow
     , mkTimeSeriesPanel
+    , mkBarChartPanel
+    , mkPieChartPanel
+    , mkHistogramPanel
     }

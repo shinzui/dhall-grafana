@@ -20,9 +20,9 @@ To see it working: write a Dhall dashboard using `TimeSeriesPanel` instead of `G
 ## Progress
 
 - [x] Add TimeSeries panel type, default, and smart constructor (2026-04-10)
-- [ ] Add BarChart panel type, default, and smart constructor
-- [ ] Add PieChart panel type, default, and smart constructor
-- [ ] Add Histogram panel type, default, and smart constructor
+- [x] Add BarChart panel type, default, and smart constructor (2026-04-10)
+- [x] Add PieChart panel type, default, and smart constructor (2026-04-10)
+- [x] Add Histogram panel type, default, and smart constructor (2026-04-10)
 - [ ] Add StateTimeline panel type, default, and smart constructor
 - [ ] Add StatusHistory panel type, default, and smart constructor
 - [ ] Update Panels union in types/Panels.dhall to include all new panel types

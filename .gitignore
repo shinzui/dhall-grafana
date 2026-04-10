@@ -1,4 +1,9 @@
 *.json
-out
+!schemas/**/*.json
+out/
+.dev/
+.direnv/
+result
+result-*
 .claude/
 CLAUDE.local.md

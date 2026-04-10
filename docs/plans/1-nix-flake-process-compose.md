@@ -23,14 +23,14 @@ To see it working: enter the dev shell, run `just process-up`, then run `just bu
 
 - [x] Create flake.nix with inputs (nixpkgs, flake-utils, treefmt-nix, pre-commit-hooks) and devShell (2026-04-10)
 - [x] Create process-compose.yaml with Grafana and Prometheus processes (2026-04-10)
-- [ ] Create Justfile with service management, build, validate, format, and watch commands
+- [x] Create Justfile with service management, build, validate, format, and watch commands (2026-04-10)
 - [x] Create .envrc for direnv integration (2026-04-10)
 - [x] Create treefmt.nix for Dhall formatting configuration (2026-04-10)
-- [ ] Migrate and update Grafana provisioning configs to grafana/ at repo root
-- [ ] Configure dashboard provisioning to auto-load compiled JSON from out/
-- [ ] Set up JSON schema validation using grafana-foundation-sdk schemas
-- [ ] Add dashboard-linter to the toolchain
-- [ ] Update .gitignore for new paths (.dev/, .direnv/, out/, result)
+- [x] Migrate and update Grafana provisioning configs to grafana/ at repo root (2026-04-10)
+- [x] Configure dashboard provisioning to auto-load compiled JSON from out/ (2026-04-10)
+- [x] Set up JSON schema validation using grafana-foundation-sdk schemas (2026-04-10)
+- [ ] Add dashboard-linter to the toolchain (skipped — not in nixpkgs, defer to follow-up)
+- [x] Update .gitignore for new paths (.dev/, .direnv/, out/, result) (2026-04-10)
 - [ ] Remove local-dev/ directory and build_examples.sh
 - [ ] Update README.md with new development workflow
 - [ ] Validate: enter dev shell, start services, build examples, view dashboards in Grafana, run schema validation
@@ -41,6 +41,7 @@ To see it working: enter the dev shell, run `just process-up`, then run `just bu
 - `grafana-server` CLI is deprecated in Grafana 12.x. The new command is `grafana server`. Updated process-compose.yaml accordingly.
 - `dashboard-linter` is not packaged in nixpkgs. Will need `buildGoModule` or skip for now. Skipping in Milestone 1; will revisit in Milestone 2.
 - treefmt-nix has built-in `programs.dhall.enable` support, so dhall formatting works through treefmt without custom hooks.
+- Schema validation (`check-jsonschema`) correctly fails on all current examples. The Dhall types generate legacy Grafana JSON (singlestat/graph panels, string datasource refs, missing `annotations` field). This confirms the grafana-foundation-sdk schema is working and shows exactly what EP-2/3/4 need to modernize. The `just validate` command is wired up and ready — it will pass once the types are updated.
 
 
 ## Decision Log
@@ -63,6 +64,10 @@ To see it working: enter the dev shell, run `just process-up`, then run `just bu
 
 - Decision: Add two-tier validation: offline JSON schema checks (fast, CI) and visual Grafana verification (local dev).
   Rationale: The grafana-foundation-sdk publishes JSON schemas for dashboard structure and every panel type. Validating against these catches structural errors without Grafana. dashboard-linter checks best practices (PromQL syntax, templated datasources). Together these provide a fast CI validation tier complementing visual Grafana verification.
+  Date: 2026-04-10
+
+- Decision: Skip dashboard-linter for now; defer to a follow-up task.
+  Rationale: dashboard-linter is not packaged in nixpkgs. Building from source with `buildGoModule` adds complexity to the flake. The JSON schema validation via check-jsonschema already provides structural validation. dashboard-linter can be added later when the types are modernized and there are valid dashboards to lint.
   Date: 2026-04-10
 
 

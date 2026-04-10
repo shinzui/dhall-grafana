@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: 'dhall-grafana-examples'
+    orgId: 1
+    folder: 'Examples'
+    type: file
+    updateIntervalSeconds: 5
+    options:
+      path: $__env{DASHBOARDS_PATH}
+      foldersFromFilesStructure: false

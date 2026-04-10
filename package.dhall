@@ -1,8 +1,12 @@
 { Utils = ./types/Utils.dhall
+, Annotation =
+  { default = ./defaults/Annotation.dhall, Type = ./types/Annotation.dhall }
 , Dashboard =
   { default = ./defaults/Dashboard.dhall
   , Type = (./types/Dashboard.dhall).Type
   }
+, DataLink =
+  { default = ./defaults/DataLink.dhall, Type = ./types/DataLink.dhall }
 , TimePicker =
   { default = ./defaults/TimePicker.dhall
   , Type = (./types/TimePicker.dhall).Type
@@ -88,6 +92,8 @@
   , Override = (./types/FieldConfig.dhall).Override
   }
 , FieldConfigs = ./types/FieldConfig.dhall
+, ValueMapping = ./types/ValueMapping.dhall
+, ValueMappingUtils = ./defaults/ValueMapping.dhall
 , XAxis = ./types/XAxis.dhall // { default = ./defaults/XAxis.dhall }
 , YAxis = ./types/YAxis.dhall // { default = ./defaults/YAxis.dhall }
 , LuceneBucketSettings = ./schemas/LuceneBucketSettings.dhall

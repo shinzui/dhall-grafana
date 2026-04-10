@@ -27,14 +27,17 @@ To see it working: compile the updated example dashboards with `just build`, the
 - [x] Add DataLink type for field-level links — 2026-04-10
 - [x] Update Threshold type to match modern stepped format — 2026-04-10
 - [x] Update existing panel defaults to use modernized FieldConfig — 2026-04-10
-- [ ] Update package.dhall with new exports
-- [ ] Update example dashboards to validate against Grafana v11
-- [ ] Validate: compile examples, load into Grafana, verify no warnings
+- [x] Update package.dhall with new exports — 2026-04-10
+- [x] Update example dashboards to validate against Grafana v11 — 2026-04-10
+- [x] Validate: compile examples, all four produce valid JSON — 2026-04-10
+- [ ] Validate: load into Grafana v11 and verify no warnings (requires running Grafana instance)
 
 
 ## Surprises & Discoveries
 
-(None yet.)
+- The `MatcherOption` union type (`< status >`) from the original FieldConfig was removed. It was too restrictive — matcher options in Grafana are free-text strings (field names, regex patterns, etc.), so `options : Text` is the correct modeling. No code outside `types/FieldConfig.dhall` referenced `MatcherOption`, so this was a clean removal.
+
+- dhall-to-json omits `None` values from record fields rather than emitting `null`. This means threshold base steps serialize as `{"color": "green"}` without a `"value"` field, rather than `{"color": "green", "value": null}`. Grafana accepts both forms, so this is not a functional issue.
 
 
 ## Decision Log
@@ -58,7 +61,14 @@ To see it working: compile the updated example dashboards with `just build`, the
 
 ## Outcomes & Retrospective
 
-(To be filled during and after implementation.)
+All type changes are implemented and all four example dashboards compile to valid JSON. Key outcomes:
+
+- Dashboard type now includes `annotations`, `fiscalYearStartMonth`, `liveNow`, `weekStart` with schema version 39.
+- FieldConfig supports 15 color modes, 4 matcher types, modern value mappings (ValueMap, RangeMap, RegexMap, SpecialValueMap), data links, and expanded defaults (decimals, displayName, min, max, noValue).
+- ThresholdMode separated from ColorMode for type safety.
+- New types exported: Annotation, DataLink, ValueMapping, ValueMappingUtils.
+- All changes are backwards-compatible with existing example dashboards — only the consul_exporter example required updates (fixedColor → Optional Text, ColorMode.absolute → ThresholdMode.absolute).
+- Remaining: live Grafana v11 validation (requires `just process-up`).
 
 
 ## Context and Orientation

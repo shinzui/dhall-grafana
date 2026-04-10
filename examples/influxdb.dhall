@@ -4,16 +4,15 @@ let noaa-target =
       \(measurement : Text) ->
       \(field : Text) ->
         Grafana.MetricsTargets.InfluxTarget
-          { groupBy =
+          Grafana.InfluxTarget::{
+          , groupBy =
             [ { type = "time", params = [ "\$__interval" ] }
             , { type = "fill", params = [ "previous" ] }
             ]
           , measurement
           , orderByTime = "ASC"
-          , policy = "default"
           , refId = "A"
           , alias = measurement
-          , resultFormat = "time_series"
           , select =
             [ [ { type = "field", params = [ field ] }
               , { type = "distinct", params = [] : List Text }

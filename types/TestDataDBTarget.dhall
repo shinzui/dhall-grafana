@@ -1,3 +1,5 @@
+let DatasourceRef = ./DatasourceRef.dhall
+
 let ScenarioId =
       < csv_metric_values
       | datapoints_outside_range
@@ -15,6 +17,10 @@ let ScenarioId =
       | table_static
       >
 
-let Target = { refId : Text, scenarioId : ScenarioId }
+let Target =
+      { refId : Text
+      , scenarioId : ScenarioId
+      , datasource : Optional DatasourceRef
+      }
 
 in  { Type = Target, ScenarioId }

@@ -14,7 +14,7 @@ let panels =
               , datasource
               , targets =
                 [ Grafana.MetricsTargets.TestDataDBTarget
-                    { refId = "A", scenarioId = ScenarioId.random_walk }
+                    Grafana.TestDataDBTarget::{ refId = "A" }
                 ]
               }
           )
@@ -25,7 +25,10 @@ let panels =
               , datasource
               , targets =
                 [ Grafana.MetricsTargets.TestDataDBTarget
-                    { refId = "A", scenarioId = ScenarioId.random_walk_table }
+                    Grafana.TestDataDBTarget::{
+                    , refId = "A"
+                    , scenarioId = ScenarioId.random_walk_table
+                    }
                 ]
               }
           )
@@ -36,7 +39,10 @@ let panels =
               , datasource
               , targets =
                 [ Grafana.MetricsTargets.TestDataDBTarget
-                    { refId = "A", scenarioId = ScenarioId.random_walk_table }
+                    Grafana.TestDataDBTarget::{
+                    , refId = "A"
+                    , scenarioId = ScenarioId.random_walk_table
+                    }
                 ]
               }
           )
@@ -47,7 +53,7 @@ let panels =
               , datasource
               , targets =
                 [ Grafana.MetricsTargets.TestDataDBTarget
-                    { refId = "A", scenarioId = ScenarioId.random_walk }
+                    Grafana.TestDataDBTarget::{ refId = "A" }
                 ]
               }
           )
@@ -58,7 +64,7 @@ let panels =
               , datasource
               , targets =
                 [ Grafana.MetricsTargets.TestDataDBTarget
-                    { refId = "A", scenarioId = ScenarioId.random_walk }
+                    Grafana.TestDataDBTarget::{ refId = "A" }
                 ]
               }
           )
@@ -69,7 +75,7 @@ let panels =
               , datasource
               , targets =
                 [ Grafana.MetricsTargets.TestDataDBTarget
-                    { refId = "A", scenarioId = ScenarioId.random_walk }
+                    Grafana.TestDataDBTarget::{ refId = "A" }
                 ]
               }
           )

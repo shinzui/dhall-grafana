@@ -84,7 +84,7 @@ let panels =
                 , expr =
                     "sum(consul_health_node_status{status='passing'} > 0) by (node, instance, status)"
                 , scenarioId = test_dashboard
-                , legendFormat = Some "{{ node }} - {{ status }}"
+                , legendFormat = "{{ node }} - {{ status }}"
                 , instant = True
                 , format = Grafana.PrometheusTargetFormat.table
                 }
@@ -118,7 +118,7 @@ let panels =
                 , expr =
                     "sum (consul_health_service_status{status!=\"passing\"})"
                 , scenarioId = test_dashboard
-                , legendFormat = Some "{{ service_name }} - {{ status }}"
+                , legendFormat = "{{ service_name }} - {{ status }}"
                 }
             ]
           , fieldConfig = Some Grafana.FieldConfig::{
@@ -155,7 +155,7 @@ let panels =
                 , expr =
                     "sum by (node,service_id,status) (consul_health_service_status)"
                 , scenarioId = test_dashboard
-                , legendFormat = Some "{{node}} - {{service_id}} - {{status}}"
+                , legendFormat = "{{node}} - {{service_id}} - {{status}}"
                 }
             ]
           , fill = 0

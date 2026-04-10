@@ -13,7 +13,7 @@ let panels =
           , datasource = Some ("\$" ++ datasourceName)
           , targets =
             [ Grafana.MetricsTargets.TestDataDBTarget
-                { refId = "A", scenarioId = ScenarioId.random_walk }
+                Grafana.TestDataDBTarget::{ refId = "A" }
             ]
           }
       , Grafana.Panels.mkRow
@@ -58,7 +58,7 @@ let panels =
             ]
           , targets =
             [ Grafana.MetricsTargets.TestDataDBTarget
-                { refId = "A", scenarioId = ScenarioId.random_walk }
+                Grafana.TestDataDBTarget::{ refId = "A" }
             ]
           }
       ]

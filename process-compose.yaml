@@ -1,0 +1,34 @@
+version: "0.5"
+log_level: info
+log_location: ./.dev/process-compose.log
+
+processes:
+  grafana:
+    command: grafana server -homepath $GRAFANA_HOME -config $CONFIG_PATH/grafana.ini
+    readiness_probe:
+      http_get:
+        host: localhost
+        port: 3000
+        path: /api/health
+      initial_delay_seconds: 3
+      period_seconds: 5
+      timeout_seconds: 3
+      success_threshold: 1
+      failure_threshold: 5
+    availability:
+      restart: on_failure
+
+  prometheus:
+    command: prometheus --config.file=./prometheus.yml --storage.tsdb.path=.dev/prometheus
+    readiness_probe:
+      http_get:
+        host: localhost
+        port: 9090
+        path: /-/ready
+      initial_delay_seconds: 2
+      period_seconds: 5
+      timeout_seconds: 3
+      success_threshold: 1
+      failure_threshold: 5
+    availability:
+      restart: on_failure

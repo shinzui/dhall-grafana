@@ -1,2 +1,4 @@
 *.json
 out
+.claude/
+CLAUDE.local.md

@@ -23,12 +23,12 @@ To see it working: write a Dhall dashboard using `TimeSeriesPanel` instead of `G
 - [x] Add BarChart panel type, default, and smart constructor (2026-04-10)
 - [x] Add PieChart panel type, default, and smart constructor (2026-04-10)
 - [x] Add Histogram panel type, default, and smart constructor (2026-04-10)
-- [ ] Add StateTimeline panel type, default, and smart constructor
-- [ ] Add StatusHistory panel type, default, and smart constructor
-- [ ] Update Panels union in types/Panels.dhall to include all new panel types
-- [ ] Add panel-specific FieldConfig custom types for each new panel
-- [ ] Update package.dhall with new panel exports
-- [ ] Create example dashboard demonstrating modern panels
+- [x] Add StateTimeline panel type, default, and smart constructor (2026-04-10)
+- [x] Add StatusHistory panel type, default, and smart constructor (2026-04-10)
+- [x] Update Panels union in types/Panels.dhall to include all new panel types (2026-04-10)
+- [x] Add panel-specific FieldConfig custom types for each new panel (2026-04-10)
+- [x] Update package.dhall with new panel exports (2026-04-10)
+- [x] Create example dashboard demonstrating modern panels (2026-04-10)
 - [ ] Validate all new panels render correctly in Grafana v11
 
 
@@ -59,7 +59,16 @@ To see it working: write a Dhall dashboard using `TimeSeriesPanel` instead of `G
 
 ## Outcomes & Retrospective
 
-(To be filled during and after implementation.)
+All six modern panel types are implemented and integrated. The implementation introduces two shared infrastructure files (`ModernBasePanel.dhall` and `ModernFieldConfig.dhall`) that were not in the original plan but proved necessary to properly type the `fieldConfig.defaults.custom` field per panel while avoiding duplication of the base panel fields and FieldConfig defaults structure.
+
+Key outcomes:
+- All six panels produce correct JSON with the expected `type` strings: `timeseries`, `barchart`, `piechart`, `histogram`, `state-timeline`, `status-history`.
+- The `fieldConfig.defaults.custom` is fully typed per panel, matching Grafana v11's architecture.
+- The Panels union now has 12 variants (6 legacy + 6 modern) with smart constructors for all.
+- All four existing example dashboards continue to compile without modification (backward compatible).
+- The new `examples/modern_panels.dhall` demonstrates all six panel types using TestData DB.
+
+Remaining: live validation in Grafana v11 (requires running Grafana instance).
 
 
 ## Context and Orientation

@@ -20,6 +20,10 @@ let PieChartPanel = (./PieChartPanel.dhall).Type
 
 let HistogramPanel = (./HistogramPanel.dhall).Type
 
+let StateTimelinePanel = (./StateTimelinePanel.dhall).Type
+
+let StatusHistoryPanel = (./StatusHistoryPanel.dhall).Type
+
 let Panels =
       < TextPanel : TextPanel
       | GraphPanel : GraphPanel
@@ -31,6 +35,8 @@ let Panels =
       | BarChartPanel : BarChartPanel
       | PieChartPanel : PieChartPanel
       | HistogramPanel : HistogramPanel
+      | StateTimelinePanel : StateTimelinePanel
+      | StatusHistoryPanel : StatusHistoryPanel
       >
 
 let panelGenerator
@@ -114,6 +120,20 @@ let mkHistogramPanel
         Panels.HistogramPanel
         (λ(p : HistogramPanel) → λ(id : Natural) → p ⫽ { id })
 
+let mkStateTimelinePanel
+    : StateTimelinePanel → Natural → Panels
+    = panelGenerator
+        StateTimelinePanel
+        Panels.StateTimelinePanel
+        (λ(p : StateTimelinePanel) → λ(id : Natural) → p ⫽ { id })
+
+let mkStatusHistoryPanel
+    : StatusHistoryPanel → Natural → Panels
+    = panelGenerator
+        StatusHistoryPanel
+        Panels.StatusHistoryPanel
+        (λ(p : StatusHistoryPanel) → λ(id : Natural) → p ⫽ { id })
+
 in  { Panels
     , mkTextPanel
     , mkGraphPanel
@@ -125,4 +145,6 @@ in  { Panels
     , mkBarChartPanel
     , mkPieChartPanel
     , mkHistogramPanel
+    , mkStateTimelinePanel
+    , mkStatusHistoryPanel
     }

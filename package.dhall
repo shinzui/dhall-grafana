@@ -33,6 +33,36 @@
   { default = ./defaults/GraphPanel.dhall
   , Type = (./types/GraphPanel.dhall).Type
   }
+, TimeSeriesPanel =
+  { default = ./defaults/TimeSeriesPanel.dhall
+  , Type = (./types/TimeSeriesPanel.dhall).Type
+  , PanelType = (./types/TimeSeriesPanel.dhall).PanelType
+  }
+, BarChartPanel =
+  { default = ./defaults/BarChartPanel.dhall
+  , Type = (./types/BarChartPanel.dhall).Type
+  , PanelType = (./types/BarChartPanel.dhall).PanelType
+  }
+, PieChartPanel =
+  { default = ./defaults/PieChartPanel.dhall
+  , Type = (./types/PieChartPanel.dhall).Type
+  , PanelType = (./types/PieChartPanel.dhall).PanelType
+  }
+, HistogramPanel =
+  { default = ./defaults/HistogramPanel.dhall
+  , Type = (./types/HistogramPanel.dhall).Type
+  , PanelType = (./types/HistogramPanel.dhall).PanelType
+  }
+, StateTimelinePanel =
+  { default = ./defaults/StateTimelinePanel.dhall
+  , Type = (./types/StateTimelinePanel.dhall).Type
+  , PanelType = (./types/StateTimelinePanel.dhall).PanelType
+  }
+, StatusHistoryPanel =
+  { default = ./defaults/StatusHistoryPanel.dhall
+  , Type = (./types/StatusHistoryPanel.dhall).Type
+  , PanelType = (./types/StatusHistoryPanel.dhall).PanelType
+  }
 , TablePanel =
   { default = ./defaults/TablePanel.dhall
   , Type = (./types/TablePanel.dhall).Type

@@ -2,28 +2,17 @@
 
 Type-safe [Grafana](https://grafana.com/) dashboards-as-code with [Dhall](https://dhall-lang.org/).
 
-> This is a fork of [weeezes/dhall-grafana](https://github.com/weeezes/dhall-grafana), originally created by Vesa Hagström. The original project targeted Grafana 6–7 (schema version 17) and is no longer actively maintained. This fork is being modernized to support **Grafana v11** (schema version 39) with updated types, modern panel support, and a reproducible Nix-based development environment.
+> This is a fork of [weeezes/dhall-grafana](https://github.com/weeezes/dhall-grafana), originally created by Vesa Hagström. The original project targeted Grafana 6-7 (schema version 17) and is no longer actively maintained. This fork has been modernized to support **Grafana v11** (schema version 39) with updated types, modern panel support, and a reproducible Nix-based development environment.
 
-## What's changing
+## Capabilities
 
-The modernization is tracked in four sequential execution plans:
-
-| Phase | Description | Status |
-|-------|-------------|--------|
-| [EP-1](docs/plans/1-nix-flake-process-compose.md) | Nix flake, process-compose, dev tooling | In progress |
-| [EP-2](docs/plans/2-modernize-core-types.md) | Dashboard schema v39, modern FieldConfig | Not started |
-| [EP-3](docs/plans/3-modern-panel-types.md) | TimeSeries, BarChart, PieChart, Histogram, StateTimeline, StatusHistory | Not started |
-| [EP-4](docs/plans/4-modernize-datasource-targets.md) | Modernized Prometheus, new Loki target, datasource UIDs | Not started |
-
-See the [master plan](docs/masterplans/1-revamp-dhall-grafana.md) for full details.
-
-## Current capabilities
-
-**Panel types:** GraphPanel, StatPanel, SinglestatPanel, TextPanel, TablePanel, Row
+**Panel types:** TimeSeries, BarChart, PieChart, Histogram, StateTimeline, StatusHistory, Stat, Table, Text, Row
 
 **Data source targets:** Prometheus, Loki, TestDataDB, RawQuery
 
-**Dashboard features:** Templating variables, links, legends, transformations, field config with thresholds and color modes, legacy per-panel alerts
+**Dashboard features:** Templating variables (query, interval, datasource, custom, constant, textbox, ad hoc), dashboard links, transformations, field config with thresholds and color modes, value mappings
+
+All generated dashboards are validated against the Grafana v11 JSON schema.
 
 ## Prerequisites
 
@@ -93,8 +82,8 @@ in  Grafana.Dashboard::{
     , title = "My Dashboard"
     , panels =
         Grafana.Utils.generateIds
-          [ Grafana.Panels.mkGraphPanel
-              Grafana.GraphPanel::{
+          [ Grafana.Panels.mkTimeSeriesPanel
+              Grafana.TimeSeriesPanel::{
               , title = "Request Rate"
               , gridPos = { x = 0, y = 0, w = 12, h = 8 }
               , targets =
@@ -133,14 +122,15 @@ Every type is defined in [`types/`](./types/) and has a corresponding default in
 
 | Example | Description |
 |---------|-------------|
-| [all_dashboard.dhall](examples/all_dashboard.dhall) | Comprehensive showcase of all panel types, templating variables, and links |
-| [consul_exporter.dhall](examples/consul_exporter.dhall) | Real-world Consul monitoring with Prometheus targets and data transformations |
+| [all_dashboard.dhall](examples/all_dashboard.dhall) | Comprehensive showcase of panel types, templating variables, and links |
+| [consul_exporter.dhall](examples/consul_exporter.dhall) | Consul monitoring with Prometheus targets and data transformations |
 | [hass_indoor.dhall](examples/hass_indoor.dhall) | Home Assistant indoor environment dashboard |
+| [modern_panels.dhall](examples/modern_panels.dhall) | All six modern panel types (TimeSeries, BarChart, PieChart, Histogram, StateTimeline, StatusHistory) |
 
 ## Project structure
 
 ```
-├── package.dhall              # Main entry point — exports all types and defaults
+├── package.dhall              # Main entry point -- exports all types and defaults
 ├── types/                     # Dhall type definitions
 ├── defaults/                  # Default values for each type
 ├── examples/                  # Example dashboards
@@ -156,7 +146,7 @@ Every type is defined in [`types/`](./types/) and has a corresponding default in
 ├── out/                       # Compiled dashboard JSON (gitignored)
 └── docs/
     ├── masterplans/           # High-level initiative planning
-    └── plans/                 # Execution plans (EP-1 through EP-4)
+    └── plans/                 # Execution plans (EP-1 through EP-5)
 ```
 
 ## Acknowledgments

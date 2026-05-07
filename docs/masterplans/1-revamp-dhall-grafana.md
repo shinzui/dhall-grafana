@@ -30,6 +30,7 @@ An alternative considered was a single monolithic "update all types" plan, but t
 | 2 | Modernize Core Dashboard Schema and Field Configuration | docs/plans/2-modernize-core-types.md | EP-1 | None | Not Started |
 | 3 | Add Modern Panel Types | docs/plans/3-modern-panel-types.md | EP-2 | None | Not Started |
 | 4 | Modernize Data Source Targets | docs/plans/4-modernize-datasource-targets.md | EP-2 | EP-3 | Not Started |
+| 6 | Support Grafana Alerting | docs/plans/6-support-grafana-alerting.md | EP-1 | EP-2, EP-4 | Completed |
 
 
 ## Dependency Graph
@@ -43,6 +44,8 @@ EP-3 (Modern Panel Types) has a hard dependency on EP-2 because new panel types 
 EP-4 (Data Source Targets) has a hard dependency on EP-2 for the same core type reasons, and a soft dependency on EP-3. The soft dependency exists because example dashboards that validate new targets benefit from having modern panel types available, but EP-4 can proceed with existing panel types if needed.
 
 EP-1 is the sole entry point. After EP-1 completes, only EP-2 can proceed. After EP-2, EP-3 and EP-4 can proceed in parallel.
+
+EP-6 (Support Grafana Alerting) is a follow-up plan that adds Grafana Unified Alerting provisioning beside dashboards. It depends on EP-1 for the local Grafana and process-compose environment, but it remains separate from dashboard schema work because alerting resources are standalone Grafana resources rather than panel fields.
 
 
 ## Integration Points
@@ -78,6 +81,7 @@ The `process-compose.yaml` and `flake.nix` files are created by EP-1 and may be 
 - [ ] EP-4: Modernize PrometheusTarget for current query model
 - [ ] EP-4: Add Loki target type
 - [x] EP-5: InfluxDB support removed (docs/plans/5-remove-influxdb-support.md)
+- [x] EP-6: Support Grafana Unified Alerting provisioning (docs/plans/6-support-grafana-alerting.md)
 - [ ] EP-4: Update MetricTargets union and validate
 
 
@@ -107,6 +111,10 @@ The `process-compose.yaml` and `flake.nix` files are created by EP-1 and may be 
 - Decision: Drop InfluxDB from the test stack. Use Grafana + TestData + Prometheus instead.
   Rationale: TestData is built into every Grafana installation and supports ~25 data scenarios (random walk, logs, flame graph, annotations, etc.) with zero infrastructure. Prometheus scraping itself provides real metric data for PromQL validation. InfluxDB added complexity for a single example dashboard. The influxdb.dhall example will remain as a compile-only artifact — it validates the InfluxDB Dhall types without needing a running InfluxDB instance.
   Date: 2026-04-10
+
+- Decision: Handle Grafana Unified Alerting through docs/plans/6-support-grafana-alerting.md as a separate follow-up rather than revising dashboard panel types.
+  Rationale: The earlier exclusion remains correct for dashboard modernization because Unified Alerting resources are provisioned as alert rule groups, contact points, policies, mute timings, and templates. EP-6 adds those resources as a separate top-level Dhall API beside dashboards.
+  Date: 2026-05-07
 
 - Decision: Add offline JSON schema validation and dashboard-linter to the toolchain.
   Rationale: The grafana-foundation-sdk publishes JSON schemas for dashboards and every panel type. Validating compiled JSON against these schemas catches structural errors without running Grafana. The dashboard-linter from Grafana checks best practices (PromQL syntax, templated datasources, panel titles). Together these provide a fast CI-friendly validation tier, while Grafana with dashboard provisioning provides visual verification for local development.

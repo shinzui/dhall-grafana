@@ -12,6 +12,8 @@ Type-safe [Grafana](https://grafana.com/) dashboards-as-code with [Dhall](https:
 
 **Dashboard features:** Templating variables (query, interval, datasource, custom, constant, textbox, ad hoc), dashboard links, transformations, field config with thresholds and color modes, value mappings
 
+**Alerting:** Grafana Unified Alerting provisioning for alert rule groups, contact points, notification policies, mute timings, and notification templates
+
 All generated dashboards are validated against the Grafana v11 JSON schema.
 
 ## Prerequisites
@@ -56,6 +58,15 @@ just validate
 ```
 
 Validates compiled JSON against the Grafana dashboard schema.
+
+### Build alerting provisioning
+
+```sh
+just build-alerting
+just reload-alerting
+```
+
+This compiles `examples/alerting.dhall` to `grafana/provisioning/alerting/alerting.json` for Grafana Unified Alerting file provisioning. Start Grafana with `just process-up`, then open [http://localhost:3000/alerting/list](http://localhost:3000/alerting/list) and [http://localhost:3000/alerting/notifications](http://localhost:3000/alerting/notifications) to inspect the provisioned example resources.
 
 ### Watch for changes
 
@@ -126,6 +137,7 @@ Every type is defined in [`types/`](./types/) and has a corresponding default in
 | [consul_exporter.dhall](examples/consul_exporter.dhall) | Consul monitoring with Prometheus targets and data transformations |
 | [hass_indoor.dhall](examples/hass_indoor.dhall) | Home Assistant indoor environment dashboard |
 | [modern_panels.dhall](examples/modern_panels.dhall) | All six modern panel types (TimeSeries, BarChart, PieChart, Histogram, StateTimeline, StatusHistory) |
+| [alerting.dhall](examples/alerting.dhall) | Unified Alerting provisioning for a rule, webhook contact point, policy, mute timing, and template |
 
 ## Project structure
 
@@ -139,14 +151,15 @@ Every type is defined in [`types/`](./types/) and has a corresponding default in
 │   ├── grafana.ini
 │   └── provisioning/
 │       ├── datasources/       # TestData, Prometheus
-│       └── dashboards/        # Auto-load from out/
+│       ├── dashboards/        # Auto-load from out/
+│       └── alerting/          # Unified Alerting provisioning JSON
 ├── flake.nix                  # Nix flake with devShell
 ├── process-compose.yaml       # Grafana + Prometheus orchestration
 ├── treefmt.nix                # Code formatting (Dhall, Nix)
 ├── out/                       # Compiled dashboard JSON (gitignored)
 └── docs/
     ├── masterplans/           # High-level initiative planning
-    └── plans/                 # Execution plans (EP-1 through EP-5)
+    └── plans/                 # Execution plans
 ```
 
 ## Acknowledgments

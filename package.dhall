@@ -1,4 +1,10 @@
 { Utils = ./types/Utils.dhall
+, Alerting =
+  { default = ./defaults/Alerting.dhall
+  , Type = (./types/Alerting.dhall).Type
+  , NoDataState = (./types/Alerting.dhall).NoDataState
+  , ExecErrState = (./types/Alerting.dhall).ExecErrState
+  }
 , Annotation =
   { default = ./defaults/Annotation.dhall, Type = ./types/Annotation.dhall }
 , Dashboard =

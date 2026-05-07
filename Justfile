@@ -20,11 +20,19 @@ build:
     set -euo pipefail
     mkdir -p out
     for f in examples/*.dhall; do
+      if [ "$(basename "$f")" = "alerting.dhall" ]; then
+        continue
+      fi
       fileName=$(basename "$f")
       echo "Building $f..."
       dhall-to-json --file "$f" > "out/${fileName/.dhall/.json}"
     done
     echo "Done"
+
+[group("alerting")]
+build-alerting:
+    mkdir -p grafana/provisioning/alerting
+    dhall-to-json --file examples/alerting.dhall > grafana/provisioning/alerting/alerting.json
 
 [group("build")]
 build-one file:
@@ -48,6 +56,27 @@ validate:
 
 [group("validate")]
 check-all: build validate
+
+[group("alerting")]
+validate-alerting:
+    dhall type --file types/Alerting.dhall
+    dhall-to-json --file examples/alerting.dhall >/dev/null
+
+[group("alerting")]
+reload-alerting:
+    curl -sS -X POST http://admin:admin@localhost:3000/api/admin/provisioning/alerting/reload
+
+[group("alerting")]
+check-alerting-installed:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    for ep in alert-rules contact-points policies mute-timings templates; do
+      code=$(curl -sS -o /dev/null -w '%{http_code}' \
+        "http://admin:admin@localhost:3000/api/v1/provisioning/$ep")
+      echo "/api/v1/provisioning/$ep -> $code"
+      [ "$code" = "200" ]
+    done
+    echo "Unified Alerting is installed and reachable."
 
 # --- Format ---
 

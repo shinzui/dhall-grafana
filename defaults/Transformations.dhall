@@ -4,12 +4,13 @@ let Prelude =
 
 let Transformations = ../types/Transformations.dhall
 
-let Organize =
-      { id = "organize"
+let Organize
+    : Transformations.Organize
+    = { id = "organize"
       , options =
         { excludeByName = Prelude.Map.empty Text Bool
-        , indexByName = Prelude.Map.empty Text Bool
-        , renameByName = Prelude.Map.empty Text Bool
+        , indexByName = Prelude.Map.empty Text Natural
+        , renameByName = Prelude.Map.empty Text Text
         }
       }
 

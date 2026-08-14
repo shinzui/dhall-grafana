@@ -8,6 +8,8 @@ let Row = (./Row.dhall).Type
 
 let TimeSeriesPanel = (./TimeSeriesPanel.dhall).Type
 
+let TrendPanel = (./TrendPanel.dhall).Type
+
 let BarChartPanel = (./BarChartPanel.dhall).Type
 
 let PieChartPanel = (./PieChartPanel.dhall).Type
@@ -24,6 +26,7 @@ let Panels =
       | TablePanel : TablePanel
       | Row : Row
       | TimeSeriesPanel : TimeSeriesPanel
+      | TrendPanel : TrendPanel
       | BarChartPanel : BarChartPanel
       | PieChartPanel : PieChartPanel
       | HistogramPanel : HistogramPanel
@@ -77,6 +80,13 @@ let mkTimeSeriesPanel
         Panels.TimeSeriesPanel
         (λ(p : TimeSeriesPanel) → λ(id : Natural) → p ⫽ { id })
 
+let mkTrendPanel
+    : TrendPanel → Natural → Panels
+    = panelGenerator
+        TrendPanel
+        Panels.TrendPanel
+        (λ(p : TrendPanel) → λ(id : Natural) → p ⫽ { id })
+
 let mkBarChartPanel
     : BarChartPanel → Natural → Panels
     = panelGenerator
@@ -118,6 +128,7 @@ in  { Panels
     , mkTablePanel
     , mkRow
     , mkTimeSeriesPanel
+    , mkTrendPanel
     , mkBarChartPanel
     , mkPieChartPanel
     , mkHistogramPanel

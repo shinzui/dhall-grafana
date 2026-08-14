@@ -14,4 +14,22 @@ let Organize
         }
       }
 
-in  { Organize }
+let ConvertFieldType
+    : Transformations.ConvertFieldType
+    = { id = "convertFieldType"
+      , options.conversions = [] : List Transformations.Conversion
+      }
+
+let JoinByField
+    : Transformations.JoinByField
+    = { id = "joinByField"
+      , options = { byField = None Text, mode = Transformations.JoinMode.outer }
+      }
+
+let SortBy
+    : Transformations.SortBy
+    = { id = "sortBy"
+      , options = { fields = {=}, sort = [] : List Transformations.SortByField }
+      }
+
+in  { Organize, ConvertFieldType, JoinByField, SortBy }

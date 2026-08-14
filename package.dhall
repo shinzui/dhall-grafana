@@ -36,6 +36,12 @@
   , Type = (./types/TimeSeriesPanel.dhall).Type
   , PanelType = (./types/TimeSeriesPanel.dhall).PanelType
   }
+, TrendPanel =
+  { default = ./defaults/TrendPanel.dhall
+  , Type = (./types/TrendPanel.dhall).Type
+  , PanelType = (./types/TrendPanel.dhall).PanelType
+  }
+, TrendPanels = ./types/TrendPanel.dhall
 , BarChartPanel =
   { default = ./defaults/BarChartPanel.dhall
   , Type = (./types/BarChartPanel.dhall).Type
@@ -105,6 +111,23 @@
   { default = (./defaults/Transformations.dhall).Organize
   , Type = (./types/Transformations.dhall).Organize
   }
+, TransformationConvertFieldType =
+  { default = (./defaults/Transformations.dhall).ConvertFieldType
+  , Type = (./types/Transformations.dhall).ConvertFieldType
+  }
+, TransformationJoinByField =
+  { default = (./defaults/Transformations.dhall).JoinByField
+  , Type = (./types/Transformations.dhall).JoinByField
+  }
+, TransformationSortBy =
+  { default = (./defaults/Transformations.dhall).SortBy
+  , Type = (./types/Transformations.dhall).SortBy
+  }
+, TransformationConversion = (./types/Transformations.dhall).Conversion
+, TransformationDestinationType =
+    (./types/Transformations.dhall).DestinationType
+, TransformationJoinMode = (./types/Transformations.dhall).JoinMode
+, TransformationSortByField = (./types/Transformations.dhall).SortByField
 , Panels = ./types/Panels.dhall
 , MetricsTargets = ./types/MetricTargets.dhall
 , RawQueryTarget =

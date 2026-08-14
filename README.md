@@ -6,7 +6,7 @@ Type-safe [Grafana](https://grafana.com/) dashboards-as-code with [Dhall](https:
 
 ## Capabilities
 
-**Panel types:** TimeSeries, BarChart, PieChart, Histogram, StateTimeline, StatusHistory, Stat, Table, Text, Row
+**Panel types:** TimeSeries, Trend, BarChart, PieChart, Histogram, StateTimeline, StatusHistory, Stat, Table, Text, Row
 
 **Data source targets:** Prometheus, Loki, TestDataDB, RawQuery
 
@@ -136,6 +136,7 @@ Every type is defined in [`types/`](./types/) and has a corresponding default in
 | [all_dashboard.dhall](examples/all_dashboard.dhall) | Comprehensive showcase of panel types, templating variables, and links |
 | [consul_exporter.dhall](examples/consul_exporter.dhall) | Consul monitoring with Prometheus targets and data transformations |
 | [hass_indoor.dhall](examples/hass_indoor.dhall) | Home Assistant indoor environment dashboard |
+| [latency_cdf.dhall](examples/latency_cdf.dhall) | Latency CDF (Trend panel on a numeric x-axis) comparing two time windows from a Prometheus histogram |
 | [modern_panels.dhall](examples/modern_panels.dhall) | All six modern panel types (TimeSeries, BarChart, PieChart, Histogram, StateTimeline, StatusHistory) |
 | [alerting.dhall](examples/alerting.dhall) | Unified Alerting provisioning for a rule, webhook contact point, policy, mute timing, and template |
 
